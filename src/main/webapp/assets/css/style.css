@@ -1,0 +1,242 @@
+/* =====================================================================
+   Online Exam Portal — Shared Design System
+   Ye file har page me Bootstrap 5 ke baad load hoti hai, isliye isme
+   Bootstrap ke default colors/components ko override kiya gaya hai.
+   Result: bina har JSP ko dobara likhe, poore app ka look consistent
+   aur professional ho jaata hai.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+	--brand-primary:#4361ee;
+	--brand-primary-dark:#2f3fb8;
+	--brand-secondary:#3a0ca3;
+	--brand-accent:#06b6d4;
+	--brand-success:#10b981;
+	--brand-danger:#ef4444;
+	--brand-warning:#f59e0b;
+	--brand-ink:#1e2433;
+	--brand-muted:#6b7280;
+	--brand-bg:#f5f7fb;
+	--radius-lg:16px;
+	--radius-md:10px;
+	--shadow-soft:0 10px 30px rgba(30,36,51,0.08);
+	--shadow-hover:0 16px 34px rgba(67,97,238,0.18);
+}
+
+html, body{
+	font-family:'Inter', 'Poppins', Arial, sans-serif;
+	background:var(--brand-bg);
+	color:var(--brand-ink);
+}
+
+h1,h2,h3,h4,h5,.navbar-brand,.logo-text{
+	font-family:'Poppins','Inter',Arial,sans-serif;
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+	border-radius:10px;
+	font-weight:600;
+	letter-spacing:.2px;
+}
+.btn-primary{
+	background:linear-gradient(135deg,var(--brand-primary),var(--brand-secondary));
+	border:none;
+}
+.btn-primary:hover, .btn-primary:focus{
+	background:linear-gradient(135deg,var(--brand-primary-dark),#2c0b80);
+}
+.btn-success{ background-color:var(--brand-success); border-color:var(--brand-success); }
+.btn-danger{ background-color:var(--brand-danger); border-color:var(--brand-danger); }
+.btn-warning{ background-color:var(--brand-warning); border-color:var(--brand-warning); color:#fff; }
+.btn-info{ background-color:var(--brand-accent); border-color:var(--brand-accent); color:#fff; }
+.btn-warning:hover{ color:#fff; }
+
+/* ---------- Navbar (admin/student header) ---------- */
+.navbar, .student-header{
+	background:linear-gradient(135deg,var(--brand-primary),var(--brand-secondary)) !important;
+	box-shadow:0 4px 18px rgba(58,12,163,.18);
+}
+.navbar-brand, .student-logo{
+	font-weight:700;
+	letter-spacing:.3px;
+}
+.navbar .nav-link{
+	font-weight:500;
+}
+.navbar .nav-link:hover{
+	color:#fff !important;
+}
+
+/* ---------- Cards ---------- */
+.card, .dashboard-card, .login-card, .register-card, .home-card{
+	border:none;
+	border-radius:var(--radius-lg) !important;
+	box-shadow:var(--shadow-soft);
+}
+.card-header{
+	background:linear-gradient(135deg,var(--brand-primary),var(--brand-secondary)) !important;
+	border-top-left-radius:var(--radius-lg) !important;
+	border-top-right-radius:var(--radius-lg) !important;
+	font-weight:600;
+}
+
+.card-btn{
+	transition:.25s ease;
+	border-radius:var(--radius-md) !important;
+}
+.card-btn:hover{
+	transform:translateY(-6px);
+	box-shadow:var(--shadow-hover) !important;
+}
+
+/* ---------- Tables ---------- */
+.table thead.table-dark, .table thead.table-dark th{
+	background:linear-gradient(135deg,var(--brand-primary),var(--brand-secondary)) !important;
+	color:#fff;
+	border-color:transparent;
+}
+.table{
+	border-radius:var(--radius-md);
+	overflow:hidden;
+}
+.table-hover tbody tr:hover{
+	background:#f1f4ff;
+}
+
+/* ---------- Badges ---------- */
+.badge.bg-success{ background-color:var(--brand-success) !important; }
+.badge.bg-danger{ background-color:var(--brand-danger) !important; }
+
+/* ---------- Forms ---------- */
+.form-control, .form-select{
+	border-radius:8px;
+	border-color:#dde1ea;
+}
+.form-control:focus, .form-select:focus{
+	border-color:var(--brand-primary);
+	box-shadow:0 0 0 .2rem rgba(67,97,238,.18);
+}
+.form-label{
+	font-weight:600;
+	color:var(--brand-ink);
+	font-size:14px;
+}
+
+/* ---------- Pagination ---------- */
+.pagination .page-link{
+	color:var(--brand-primary);
+	border-radius:8px;
+	margin:0 3px;
+	border:1px solid #e3e7f3;
+}
+.pagination .page-item.active .page-link{
+	background:linear-gradient(135deg,var(--brand-primary),var(--brand-secondary));
+	border-color:transparent;
+}
+.pagination .page-item.disabled .page-link{
+	color:#c3c8d6;
+}
+
+/* ---------- Auth pages (login/register/forgot/otp/reset) ---------- */
+.auth-wrapper{
+	min-height:100vh;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	background:linear-gradient(135deg,var(--brand-primary) 0%,var(--brand-secondary) 60%,var(--brand-accent) 130%);
+	padding:30px 15px;
+}
+.auth-card{
+	width:100%;
+	max-width:440px;
+	background:#fff;
+	border-radius:var(--radius-lg);
+	padding:38px 34px;
+	box-shadow:0 20px 45px rgba(0,0,0,.28);
+}
+.auth-logo{
+	width:64px;height:64px;border-radius:16px;
+	display:flex;align-items:center;justify-content:center;
+	background:linear-gradient(135deg,var(--brand-primary),var(--brand-secondary));
+	color:#fff;font-size:30px;margin:0 auto 14px auto;
+}
+.auth-title{ text-align:center; font-weight:700; margin-bottom:6px; }
+.auth-sub{ text-align:center; color:var(--brand-muted); font-size:14px; margin-bottom:24px; }
+.auth-links{ text-align:center; margin-top:18px; font-size:14px; }
+.auth-links a{ color:var(--brand-primary); text-decoration:none; font-weight:600; }
+.auth-links a:hover{ text-decoration:underline; }
+
+/* ---------- Landing page ---------- */
+.site-navbar{
+	background:rgba(30,36,51,.0);
+	padding:18px 0;
+}
+.site-navbar.scrolled, .site-navbar{
+	backdrop-filter:blur(6px);
+}
+.hero-section{
+	background:linear-gradient(135deg,var(--brand-primary) 0%,var(--brand-secondary) 55%,#160b40 130%);
+	color:#fff;
+	padding:90px 0 110px 0;
+	position:relative;
+	overflow:hidden;
+}
+.hero-title{
+	font-weight:800;
+	font-size:2.6rem;
+}
+.hero-sub{
+	color:#e6e9ff;
+	font-size:1.1rem;
+	max-width:560px;
+}
+.feature-card{
+	border-radius:var(--radius-lg);
+	background:#fff;
+	box-shadow:var(--shadow-soft);
+	padding:28px 24px;
+	height:100%;
+	transition:.25s ease;
+}
+.feature-card:hover{
+	transform:translateY(-6px);
+	box-shadow:var(--shadow-hover);
+}
+.feature-icon{
+	width:52px;height:52px;border-radius:14px;
+	display:flex;align-items:center;justify-content:center;
+	background:linear-gradient(135deg,var(--brand-primary),var(--brand-accent));
+	color:#fff;font-size:22px;margin-bottom:14px;
+}
+.stat-box{
+	text-align:center;
+	color:#fff;
+}
+.stat-box .num{ font-size:2rem; font-weight:800; }
+.stat-box .label{ font-size:.85rem; color:#dfe3ff; }
+.site-footer{
+	background:#161a2b;
+	color:#c6c9d8;
+	padding:34px 0;
+	font-size:14px;
+}
+.site-footer a{ color:#c6c9d8; }
+
+/* ---------- Misc ---------- */
+.section-heading{
+	font-weight:700;
+	margin-bottom:8px;
+}
+.section-sub{
+	color:var(--brand-muted);
+	margin-bottom:36px;
+}
+.otp-input{
+	letter-spacing:10px;
+	font-size:22px;
+	text-align:center;
+	font-weight:700;
+}

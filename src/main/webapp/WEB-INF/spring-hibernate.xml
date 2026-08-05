@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd
+
+       http://www.springframework.org/schema/tx
+       https://www.springframework.org/schema/tx/spring-tx.xsd">
+  
+     
+<!-- Data Base Ka Pata Bataya spring ko   -->
+<!-- Bean : Spring IoC Container is object ko create aur manage karega -->
+  						
+  						<!-- DataSource: Spring ko Database Connection ki information di ja rahi hai -->
+  						
+<bean id="dataSource"  
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" 
+					  value="com.mysql.cj.jdbc.Driver"/>
+					  
+			<property name="url" 
+					  value="jdbc:mysql://localhost:3306/online_exam_portal"/>
+					  
+			<property name="username" 
+					  value="root"/>
+					  
+			<property name="password" 
+					  value="root"/>
+</bean>		 
+		 
+		 
+		 
+		 
+		 
+ <!-- Ab yaha Session Factory Ke Bare Bataenge   -->
+ <!-- Bean : Spring IoC Container is object ko create aur manage karega -->
+				
+				    <!-- SessionFactory: Hibernate Session banane wali Factory-->
+
+<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">		  
+		  
+	<property name="dataSource" ref="dataSource"/>	 
+	
+<!-- ye scan karta hai @Entity ko or ye obj nahi banata bali mapping karta hai 
+      matalab User class hai uski user table banegi DB me essssa  -->	
+      
+<!-- Spring Scan              Hibernate Scan
+   		↓							↓
+	  Object					Mapping
+   		↓							↓
+	IoC Container 				Database    -->
+	<property name="packagesToScan" value="com.exam.entity"/>
+
+	<property name="hibernateProperties">
+    <props>
+    		<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+    		<prop key="hibernate.show_sql">true</prop>
+    		<prop key="hibernate.hbm2ddl.auto">update</prop>
+    <!--
+        Ye values hoti hain:
+
+		create → Har baar table delete karke naya banata hai.
+		update → Sirf changes karta hai. (Sabse common development me)
+		validate → Sirf check karta hai.
+		create-drop → Start par banata hai, stop par delete kar deta hai.
+		
+     -->
+    </props>
+    </property> 
+    
+    
+ </bean>   
+ 
+ 
+ 
+ 
+ 
+ 
+ 							<!-- Transaction Manager -->
+ 							
+ <!-- Bean : Spring IoC Container is object ko create aur manage karega -->
+ <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+ <!-- HibernateTransactionManager
+		Ye ensure karta hai:
+		
+		Sab successful → COMMIT
+		Beech me error → ROLLBACK 
+		
+	Ya to sab save hoga, ya kuch bhi save nahi hoga.	
+-->
+ <property name="sessionFactory" ref="sessionFactory"/>   
+
+</bean>
+<tx:annotation-driven transaction-manager="transactionManager"/>
+<!-- tx:annotation-driven Ye @Transactional annotation ko enable karta hai.
+ iska wese yaha par kuch kam nahi wese but hamne likha because in future ham 
+ @Transactional Lagaye to hame ye xml wpas edit na karna pade 
+ -->
+
+<!-- Password ko BCrypt hash me store karne ke liye. Ab kahi bhi plaintext password compare nahi hota -->
+<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+<!-- Mail Sender: Welcome mail + Forgot Password OTP mail bhejne ke liye -->
+<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="smtp.gmail.com"/>
+	<property name="port" value="587"/>
+	<property name="username" value="${mail.username}"/>
+	<property name="password" value="${mail.password}"/>
+	<property name="javaMailProperties">
+		<props>
+			<prop key="mail.transport.protocol">smtp</prop>
+			<prop key="mail.smtp.auth">true</prop>
+			<prop key="mail.smtp.starttls.enable">true</prop>
+			<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+		</props>
+	</property>
+</bean>
+
+</beans>
